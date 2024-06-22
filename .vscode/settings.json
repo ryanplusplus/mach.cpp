@@ -1,0 +1,12 @@
+{
+  "[c]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[cpp]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "editor.formatOnSave": true,
+  "C_Cpp.intelliSenseEngine": "disabled"
+}

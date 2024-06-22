@@ -1,0 +1,15 @@
+set_languages('c++20')
+
+add_requires('criterion', { system = true })
+
+target('test')
+  set_kind('binary')
+  add_includedirs('src')
+  add_files('src/**.cpp')
+  add_files('test/src/**.cpp')
+  add_packages('criterion')
+  add_rules('mode.check', 'mode.debug', 'mode.release')
+  set_warnings('everything', 'error')
+  after_build(function(target)
+    os.exec(target:targetfile())
+  end)
