@@ -40,36 +40,32 @@ Test(mach, should_fail_when_a_function_is_called_unexpectedly)
 
 Test(mach, should_verify_that_a_function_is_called_with_the_correct_arguments)
 {
-  expect_one_call("foo", { { "a", 1 }, { "b", "2" } })
-    .when([]() {
-      actual_call("foo", { { "a", 1 }, { "b", "2" } });
-    });
+  expect_one_call("foo").with_arguments({ { "a", 1 }, { "b", "2" } }).when([]() {
+    actual_call("foo", { { "a", 1 }, { "b", "2" } });
+  });
 }
 
 Test(mach, should_fail_when_a_function_is_called_with_the_wrong_arguments)
 {
   cr_assert_throw(
-    expect_one_call("foo", { { "a", 1 }, { "b", "2" } })
-      .when([]() {
-        actual_call("foo", { { "a", 1 }, { "b", "3" } });
-      }),
+    expect_one_call("foo").with_arguments({ { "a", 1 }, { "b", "2" } }).when([]() {
+      actual_call("foo", { { "a", 1 }, { "b", "3" } });
+    }),
     UnexpectedArgumentsError);
 }
 
 Test(mach, should_allow_a_function_to_be_called_with_any_arguments)
 {
-  expect_one_call_with_any_arguments("foo")
-    .when([]() {
-      actual_call("foo", { { "a", 1 }, { "b", "2" } });
-    });
+  expect_one_call("foo").with_any_arguments().when([]() {
+    actual_call("foo", { { "a", 1 }, { "b", "2" } });
+  });
 }
 
 Test(mach, should_allow_mocked_calls_to_return_a_value)
 {
-  expect_one_call("foo", {}, 4)
-    .when([]() {
-      cr_assert_eq(actual_call("foo"), Value{ 4 });
-    });
+  expect_one_call("foo").and_will_return_value(4).when([]() {
+    cr_assert_eq(actual_call("foo"), Value{ 4 });
+  });
 }
 
 /*

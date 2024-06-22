@@ -9,10 +9,10 @@ static auto default_handler = [](ActualCall call) -> Value {
 
 static std::function<Value(ActualCall)> handler = default_handler;
 
-auto mach::expect_one_call(const char* name, std::initializer_list<Argument> arguments, Value return_value) -> Expectation
+auto mach::expect_one_call(const char* name) -> Expectation
 {
   return Expectation{
-    ExpectedCall{ name, arguments, return_value }
+    ExpectedCall{ name }
   };
 }
 

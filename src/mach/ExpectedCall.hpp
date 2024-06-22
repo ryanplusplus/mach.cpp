@@ -8,9 +8,15 @@
 
 namespace mach {
   struct ExpectedCall {
-    ExpectedCall(std::string name, std::initializer_list<Argument> arguments = {}, Value return_value = 0)
-      : name{ std::move(name) }, arguments{ std::move(arguments) }, return_value{ std::move(return_value) }
+    ExpectedCall(std::string name)
+      : name{ name }
     {
+    }
+
+    auto with_arguments(std::initializer_list<Argument> arguments) -> ExpectedCall&
+    {
+      this->arguments = arguments;
+      return *this;
     }
 
     auto with_any_arguments() -> ExpectedCall&
@@ -19,9 +25,15 @@ namespace mach {
       return *this;
     }
 
+    auto and_will_return_value(Value value) -> ExpectedCall&
+    {
+      this->return_value = value;
+      return *this;
+    }
+
     std::string name;
-    std::vector<Argument> arguments;
-    Value return_value;
+    std::vector<Argument> arguments{};
+    Value return_value = 0;
     bool ignore_arguments = false;
   };
 }

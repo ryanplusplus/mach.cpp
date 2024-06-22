@@ -5,6 +5,7 @@
 #include <variant>
 
 namespace mach {
+  // fixme can this use std::any?
   using Value = std::variant<int, std::string>;
 }
 

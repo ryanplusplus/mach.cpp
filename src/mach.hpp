@@ -12,9 +12,7 @@
 
 namespace mach {
   auto expect_one_call(
-    const char* name,
-    std::initializer_list<Argument> arguments = {},
-    Value return_value = {})
+    const char* name)
     -> Expectation;
 
   auto expect_one_call_with_any_arguments(
